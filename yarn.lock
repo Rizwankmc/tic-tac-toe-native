@@ -2299,6 +2299,7 @@ css-select@^2.1.0:
     domutils "^1.7.0"
     nth-check "^1.0.2"
 
+<<<<<<< HEAD
 css-to-react-native@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/css-to-react-native/-/css-to-react-native-3.0.0.tgz#62dbe678072a824a689bcfee011fc96e02a7d756"
@@ -2308,6 +2309,8 @@ css-to-react-native@^3.0.0:
     css-color-keywords "^1.0.0"
     postcss-value-parser "^4.0.2"
 
+=======
+>>>>>>> 37bdcb2b483955448e6dc625eefbee9e3fada1fb
 css-tree@^1.0.0-alpha.39:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/css-tree/-/css-tree-1.1.3.tgz#eb4870fb6fd7707327ec95c2ff2ab09b5e8db91d"
