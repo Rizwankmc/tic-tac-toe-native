@@ -21,7 +21,7 @@ import {
 } from "../components/styles";
 import TextInput from "../components/TextInput";
 
-const Login = () => {
+const Login = ({ navigation }) => {
   return (
     <KeyboardAvoidingWrapper>
       <StyledContainer>
@@ -57,7 +57,7 @@ const Login = () => {
                   secureTextEntry={true}
                 />
                 <MsgBox>...</MsgBox>
-                <StyledButton onPress={handleSubmit}>
+                <StyledButton onPress={() => navigation.navigate("Game")}>
                   <ButtonText>Login</ButtonText>
                 </StyledButton>
                 <Line />
@@ -66,7 +66,11 @@ const Login = () => {
                 </StyledButton>
                 <ExtraView>
                   <ExtraText>Don't have an account already?</ExtraText>
-                  <TextLinkContent>Signup</TextLinkContent>
+                  <TextLinkContent
+                    onPress={() => navigation.navigate("Signup")}
+                  >
+                    Signup
+                  </TextLinkContent>
                 </ExtraView>
               </StyledFormArea>
             )}

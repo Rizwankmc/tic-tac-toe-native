@@ -1,7 +1,7 @@
-import Login from "./screen/Login";
+import RootStack from "./navigators/Rootstack";
 
 export default function App() {
-  return <Login />;
+  return <RootStack />;
 }
 
 //const styles = StyleSheet.create({
