@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/tictactoe.jpg";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import {
@@ -20,8 +20,17 @@ import {
   TextLinkContent,
 } from "../components/styles";
 import TextInput from "../components/TextInput";
+import { registerUser } from "../utils/authApis";
 
 const Signup = ({ navigation }) => {
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState("");
+
+  const handleRegister = async (value) => {
+    console.log("values =>", value);
+    await registerUser(value, setMsg, setLoading);
+  };
+
   return (
     <KeyboardAvoidingWrapper>
       <StyledContainer>
@@ -33,7 +42,7 @@ const Signup = ({ navigation }) => {
           <Formik
             initialValues={{ username: "", password: "", name: "" }}
             onSubmit={(value) => {
-              console.log("value =>", value);
+              handleRegister(value);
             }}
           >
             {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -64,7 +73,7 @@ const Signup = ({ navigation }) => {
                   value={values.password}
                   secureTextEntry={true}
                 />
-                <MsgBox>...</MsgBox>
+                <MsgBox>{msg}</MsgBox>
                 <StyledButton onPress={handleSubmit}>
                   <ButtonText>Submit</ButtonText>
                 </StyledButton>

@@ -1,7 +1,36 @@
 import RootStack from "./navigators/Rootstack";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import AppLoading from "expo-app-loading";
+import { useState } from "react";
+import { CredentailsContext } from "./utils/context";
 
 export default function App() {
-  return <RootStack />;
+  const [appReady, setAppReady] = useState(false);
+  const [storedToken, setStoredToken] = useState(null);
+
+  const checkLoginCredentials = async () => {
+    const result = await AsyncStorage.getItem("token");
+    if (result) {
+      setStoredToken(result);
+    } else {
+      setStoredToken(null);
+    }
+  };
+
+  if (!appReady) {
+    return (
+      <AppLoading
+        startAsync={checkLoginCredentials}
+        onFinish={() => setAppReady(true)}
+        onError={console.warn}
+      />
+    );
+  }
+  return (
+    <CredentailsContext.Provider value={{ storedToken, setStoredToken }}>
+      <RootStack />
+    </CredentailsContext.Provider>
+  );
 }
 
 //const styles = StyleSheet.create({

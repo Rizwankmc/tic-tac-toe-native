@@ -6,19 +6,44 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Login from "../screen/Login";
 import Signup from "../screen/Signup";
+import { Colors } from "../components/styles";
+import { CredentailsContext } from "../utils/context";
 //import Game from "../screen/Game";
 
 const Stack = createNativeStackNavigator();
 
 const RootStack = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Signup" component={Signup} />
-        {/*<Stack.Screen name="Game" component={Game} />*/}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <CredentailsContext.Consumer>
+      {({ storedToken }) => (
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Login"
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: "transparent",
+              },
+              headerTintColor: Colors.tertiary,
+              headerTransparent: true,
+              headerTitle: "",
+              headerLeftContainerStyle: {
+                paddingLeft: 20,
+              },
+            }}
+          >
+            {storedToken ? (
+              <Stack.Screen name="Login" component={Login} />
+            ) : (
+              <>
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="Signup" component={Signup} />
+                {/*<Stack.Screen name="Game" component={Game} />*/}
+              </>
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      )}
+    </CredentailsContext.Consumer>
   );
 };
 
