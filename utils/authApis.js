@@ -1,11 +1,33 @@
 import axios from "axios";
+import { AsyncStorage } from "react-native";
 import catchErrors from "./catchError";
 import { baseURL } from "./constants";
+
+export const usernameAvailabilityCheck = async (
+  username,
+  setAvailableMsg,
+  setAvailableType
+) => {
+  try {
+    const res = await axios.get(`${baseURL}/api/signup/${username}`);
+    if (res.status === 200) {
+      setAvailableMsg(res.data.msg);
+      setAvailableType("SUCCESS");
+    }
+    console.log("res.status =>", res.data);
+  } catch (error) {
+    console.log("Erors =>", error);
+    const errorMsg = catchErrors(error);
+    setAvailableMsg(errorMsg);
+    setAvailableType("FAIL");
+  }
+};
 
 export const registerUser = async (
   { username, email, password, referal },
   setMsg,
-  setLoading
+  setLoading,
+  setMsgType
 ) => {
   setLoading(true);
   try {
@@ -17,10 +39,14 @@ export const registerUser = async (
     });
     if (res.status === 200) {
       setMsg(res.data.msg);
+      setMsgType("SUCCESS");
     }
+    console.log("res.status =>", res.data);
   } catch (error) {
+    console.log("Erors =>", error);
     const errorMsg = catchErrors(error);
     setMsg(errorMsg);
+    setMsgType("FAIL");
   }
   setLoading(false);
 };
@@ -47,22 +73,18 @@ export const loginUser = async (
   setLoading(false);
 };
 
-export const onboardUser = async (
-  verificationToken,
-  setLoading,
-  setError,
-  setSuccessmsg
-) => {
+export const verifyOtp = async (otp, setLoading, setMsg, setMsgType) => {
   setLoading(true);
   try {
-    const res = await axios.post(
-      `${baseURL}/api/onboarding/${verificationToken}`
-    );
-    setSuccessmsg(true);
+    const res = await axios.post(`${baseURL}/api/onboarding/${otp}`);
+    setMsg(true);
+    setMsgType("SUCCESS");
+    AsyncStorage.setItem("token", res.data.token);
     setToken(res.data.token);
   } catch (error) {
     const errorMsg = catchErrors(error);
-    setError(errorMsg);
+    setMsg(errorMsg);
+    setMsgType("FAIL");
   }
   setLoading(false);
 };

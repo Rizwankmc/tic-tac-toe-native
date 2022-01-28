@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { ActivityIndicator } from "react-native";
 import logo from "../assets/tictactoe.jpg";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import {
@@ -20,15 +21,34 @@ import {
   TextLinkContent,
 } from "../components/styles";
 import TextInput from "../components/TextInput";
-import { registerUser } from "../utils/authApis";
+import { registerUser, usernameAvailabilityCheck } from "../utils/authApis";
 
 const Signup = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
+  const [msgType, setMsgType] = useState("");
+  const [availableMsg, setAvailableMsg] = useState("");
+  const [availableType, setAvailableType] = useState("");
+
+  useEffect(() => {
+    if (msgType === "SUCCESS") {
+      console.log("ddd");
+      navigation.navigate("EmailOtp");
+    }
+  }, [msgType]);
 
   const handleRegister = async (value) => {
     console.log("values =>", value);
-    await registerUser(value, setMsg, setLoading);
+    await registerUser(value, setMsg, setLoading, setMsgType);
+  };
+
+  const checkUsername = async (e) => {
+    console.log("Username =>", e.nativeEvent.text);
+    await usernameAvailabilityCheck(
+      e.nativeEvent.text,
+      setAvailableMsg,
+      setAvailableType
+    );
   };
 
   return (
@@ -40,7 +60,7 @@ const Signup = ({ navigation }) => {
           <PageTitle>Tic Tac Toe</PageTitle>
           <SubTitle>Account Sign up</SubTitle>
           <Formik
-            initialValues={{ username: "", password: "", name: "" }}
+            initialValues={{ email: "", password: "", username: "" }}
             onSubmit={(value) => {
               handleRegister(value);
             }}
@@ -48,16 +68,17 @@ const Signup = ({ navigation }) => {
             {({ handleChange, handleBlur, handleSubmit, values }) => (
               <StyledFormArea>
                 <TextInput
-                  label={"Full name"}
+                  label={"Username"}
                   placeholder="Enter your name"
                   placeholderTextColor={Colors.darkLight}
-                  onChangeText={handleChange("name")}
-                  onBlur={handleBlur("name")}
+                  onChangeText={handleChange("username")}
+                  onBlur={(value) => checkUsername(value)}
                   value={values.name}
                 />
+                <MsgBox type={availableType}>{availableMsg}</MsgBox>
                 <TextInput
-                  label={"Email/Username"}
-                  placeholder="Email or Username"
+                  label={"Email"}
+                  placeholder="Email here"
                   placeholderTextColor={Colors.darkLight}
                   onChangeText={handleChange("email")}
                   onBlur={handleBlur("email")}
@@ -73,10 +94,16 @@ const Signup = ({ navigation }) => {
                   value={values.password}
                   secureTextEntry={true}
                 />
-                <MsgBox>{msg}</MsgBox>
-                <StyledButton onPress={handleSubmit}>
-                  <ButtonText>Submit</ButtonText>
-                </StyledButton>
+                <MsgBox type={msgType}>{msg}</MsgBox>
+                {loading ? (
+                  <StyledButton disabled={true}>
+                    <ActivityIndicator size="large" color={Colors.primary} />
+                  </StyledButton>
+                ) : (
+                  <StyledButton onPress={handleSubmit}>
+                    <ButtonText>Submit</ButtonText>
+                  </StyledButton>
+                )}
                 <Line />
                 <ExtraView>
                   <ExtraText>Already have an account?</ExtraText>

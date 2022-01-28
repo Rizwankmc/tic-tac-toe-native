@@ -10,7 +10,7 @@ export const Colors = {
   tertiary: "#1F2937",
   darkLight: "#9CA3AF",
   brand: "#6D28D9",
-  green: "#10B9801",
+  green: "#10B981",
   red: "#EF4444",
 };
 
@@ -104,6 +104,7 @@ export const ButtonText = styled.Text`
 export const MsgBox = styled.Text`
   text-align: center;
   font-size: 13px;
+  color: ${(props) => (props.type === "SUCCESS" ? green : red)};
 `;
 
 export const Line = styled.View`
@@ -134,4 +135,21 @@ export const TextLink = styled.TouchableOpacity`
 export const TextLinkContent = styled.Text`
   color: ${brand};
   font-size: 15px;
+`;
+
+export const GridContainer = styled.View`
+  display: flex;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 50px 50px;
+  grid-gap: 5px;
+`;
+
+export const GridItem = styled.View`
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+  background-color: ${darkLight};
+  color: ${brand}
+	font-size: 18px;
+	font-weight: bold;
 `;
