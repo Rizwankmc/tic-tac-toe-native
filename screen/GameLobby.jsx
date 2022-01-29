@@ -16,6 +16,8 @@ import {
   ButtonText,
   GridContainer,
   GridItem,
+  GridItemImage,
+  GridItemText,
   InnerContainer,
   Line,
   MsgBox,
@@ -34,6 +36,8 @@ const GameLobby = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
+
+  const SearchUser = async (value) => {};
   return (
     <KeyboardAvoidingWrapper>
       <StyledContainer>
@@ -71,56 +75,56 @@ const GameLobby = ({ navigation }) => {
             )}
           </Formik>
           <Line />
-          {/*<GridContainer>
+          <GridContainer>
             <GridItem>
-              <Image source={user1} resize="cover" />
-              <Text>Aman</Text>
+              <GridItemImage source={user1} resize="cover" />
+              <GridItemText>Aman</GridItemText>
             </GridItem>
             <GridItem>
-              <Image source={user1} resize="cover" />
-              <Text>Aman</Text>
+              <GridItemImage source={user1} resize="cover" />
+              <GridItemText>Aman</GridItemText>
             </GridItem>
             <GridItem>
-              <Image source={user1} resize="cover" />
-              <Text>Aman</Text>
+              <GridItemImage source={user1} resize="cover" />
+              <GridItemText>Aman</GridItemText>
             </GridItem>
             <GridItem>
-              <Image source={user1} resize="cover" />
-              <Text>Aman</Text>
+              <GridItemImage source={user1} resize="cover" />
+              <GridItemText>Aman</GridItemText>
             </GridItem>
             <GridItem>
-              <Image source={user1} resize="cover" />
-              <Text>Aman</Text>
+              <GridItemImage source={user1} resize="cover" />
+              <GridItemText>Aman</GridItemText>
             </GridItem>
             <GridItem>
-              <Image source={user1} resize="cover" />
-              <Text>Aman</Text>
+              <GridItemImage source={user1} resize="cover" />
+              <GridItemText>Aman</GridItemText>
             </GridItem>
             <GridItem>
-              <Image source={user1} resize="cover" />
-              <Text>Aman</Text>
+              <GridItemImage source={user1} resize="cover" />
+              <GridItemText>Aman</GridItemText>
             </GridItem>
             <GridItem>
-              <Image source={user1} resize="cover" />
-              <Text>Aman</Text>
+              <GridItemImage source={user1} resize="cover" />
+              <GridItemText>Aman</GridItemText>
             </GridItem>
             <GridItem>
-              <Image source={user1} resize="cover" />
-              <Text>Aman</Text>
+              <GridItemImage source={user1} resize="cover" />
+              <GridItemText>Aman</GridItemText>
             </GridItem>
             <GridItem>
-              <Image source={user1} resize="cover" />
-              <Text>Aman</Text>
+              <GridItemImage source={user1} resize="cover" />
+              <GridItemText>Aman</GridItemText>
             </GridItem>
             <GridItem>
-              <Image source={user1} resize="cover" />
-              <Text>Aman</Text>
+              <GridItemImage source={user1} resize="cover" />
+              <GridItemText>Aman</GridItemText>
             </GridItem>
             <GridItem>
-              <Image source={user1} resize="cover" />
-              <Text>Aman</Text>
+              <GridItemImage source={user1} resize="cover" />
+              <GridItemText>Aman</GridItemText>
             </GridItem>
-          </GridContainer>*/}
+          </GridContainer>
         </InnerContainer>
       </StyledContainer>
     </KeyboardAvoidingWrapper>

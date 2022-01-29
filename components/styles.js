@@ -139,17 +139,23 @@ export const TextLinkContent = styled.Text`
 
 export const GridContainer = styled.View`
   display: flex;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 50px 50px;
-  grid-gap: 5px;
+  flex-wrap: wrap;
+  flex-direction: row;
+  background-color: ${primary};
+  width: 100%;
 `;
 
 export const GridItem = styled.View`
-  display: flex;
-  justify-content: center;
-  padding: 0.5rem;
-  background-color: ${darkLight};
-  color: ${brand}
-	font-size: 18px;
-	font-weight: bold;
+  background-color: #f1f1f1;
+  align-items: center;
+  margin: 5px;
+`;
+
+export const GridItemImage = styled.Image`
+  width: 70px;
+  height: 70px;
+`;
+export const GridItemText = styled.Text`
+  font-size: 15px;
+  font-weight: bold;
 `;

@@ -152,3 +152,25 @@ export const updateProfile = async (
   }
   setLoading(false);
 };
+
+const searchUser = async (value, setUsers, setMsg) => {
+  try {
+    const res = await axios.post(`${baseURL}/api/signup`, {
+      username,
+      email,
+      password,
+      referal,
+    });
+    if (res.status === 200) {
+      setMsg(res.data.msg);
+      setMsgType("SUCCESS");
+    }
+    console.log("res.status =>", res.data);
+  } catch (error) {
+    console.log("Erors =>", error);
+    const errorMsg = catchErrors(error);
+    setMsg(errorMsg);
+    setMsgType("FAIL");
+  }
+  setLoading(false);
+};

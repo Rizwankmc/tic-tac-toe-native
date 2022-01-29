@@ -20,7 +20,7 @@ const RootStack = () => {
       {({ storedToken }) => (
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="GameLobby"
+            initialRouteName="Login"
             screenOptions={{
               headerStyle: {
                 backgroundColor: "transparent",
@@ -37,7 +37,6 @@ const RootStack = () => {
               <Stack.Screen name="GameLobby" component={GameLobby} />
             ) : (
               <>
-                <Stack.Screen name="GameLobby" component={GameLobby} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Signup" component={Signup} />
                 <Stack.Screen name="EmailOtp" component={EmailOtp} />
