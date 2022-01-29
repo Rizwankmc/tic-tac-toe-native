@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { ActivityIndicator } from "react-native";
 import logo from "../assets/tictactoe.jpg";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import {
@@ -20,8 +21,33 @@ import {
   TextLinkContent,
 } from "../components/styles";
 import TextInput from "../components/TextInput";
+import { loginUser } from "../utils/authApis";
+import { CredentailsContext } from "../utils/context";
 
 const Login = ({ navigation }) => {
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [msgType, setMsgType] = useState("");
+  const context = useContext(CredentailsContext);
+
+  useEffect(() => {
+    if (msgType === "SUCCESS") {
+      setMsg("");
+      setMsgType("");
+      console.log("ddd");
+      navigation.navigate("GameLobby");
+    }
+    if (msg === "Please verify your email before trying to log in") {
+      setMsg("");
+      setMsgType("");
+      navigation.navigate("EmailOtp");
+    }
+  }, [msgType]);
+
+  const handleLogin = async (value) => {
+    const token = await loginUser(value, setMsg, setLoading, setMsgType);
+    if (token) context.setStoredToken(token);
+  };
   return (
     <KeyboardAvoidingWrapper>
       <StyledContainer>
@@ -31,9 +57,9 @@ const Login = ({ navigation }) => {
           <PageTitle>Tic Tac Toe</PageTitle>
           <SubTitle>Account Login</SubTitle>
           <Formik
-            initialValues={{ username: "", password: "" }}
+            initialValues={{ email: "", password: "" }}
             onSubmit={(value) => {
-              console.log("value =>", value);
+              handleLogin(value);
             }}
           >
             {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -56,10 +82,16 @@ const Login = ({ navigation }) => {
                   value={values.password}
                   secureTextEntry={true}
                 />
-                <MsgBox>...</MsgBox>
-                <StyledButton onPress={() => navigation.navigate("Game")}>
-                  <ButtonText>Login</ButtonText>
-                </StyledButton>
+                <MsgBox type={msgType}>{msg}</MsgBox>
+                {loading ? (
+                  <StyledButton disabled={true}>
+                    <ActivityIndicator size="large" color={Colors.primary} />
+                  </StyledButton>
+                ) : (
+                  <StyledButton onPress={handleSubmit}>
+                    <ButtonText>Submit</ButtonText>
+                  </StyledButton>
+                )}
                 <Line />
                 <StyledButton onPress={handleSubmit}>
                   <ButtonText>Sign in with Google</ButtonText>

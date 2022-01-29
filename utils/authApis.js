@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import catchErrors from "./catchError";
 import { baseURL } from "./constants";
 
@@ -14,9 +14,7 @@ export const usernameAvailabilityCheck = async (
       setAvailableMsg(res.data.msg);
       setAvailableType("SUCCESS");
     }
-    console.log("res.status =>", res.data);
   } catch (error) {
-    console.log("Erors =>", error);
     const errorMsg = catchErrors(error);
     setAvailableMsg(errorMsg);
     setAvailableType("FAIL");
@@ -41,9 +39,7 @@ export const registerUser = async (
       setMsg(res.data.msg);
       setMsgType("SUCCESS");
     }
-    console.log("res.status =>", res.data);
   } catch (error) {
-    console.log("Erors =>", error);
     const errorMsg = catchErrors(error);
     setMsg(errorMsg);
     setMsgType("FAIL");
@@ -51,24 +47,17 @@ export const registerUser = async (
   setLoading(false);
 };
 
-export const loginUser = async (
-  { email, password },
-  setError,
-  setLoading,
-  handleModal
-) => {
+export const loginUser = async (value, setMsg, setLoading, setMsgType) => {
   setLoading(true);
   try {
-    const res = await axios.post(`${baseURL}/api/auth`, {
-      email,
-      password,
-    });
-    setToken(res.data.token);
-    handleModal(false);
-    Router.push("/");
+    const res = await axios.post(`${baseURL}/api/auth`, value);
+    AsyncStorage.setItem("token", res.data.token);
+    setMsgType("SUCCESS");
+    return res.data.token;
   } catch (error) {
     const errorMsg = catchErrors(error);
-    setError(errorMsg);
+    setMsg(errorMsg);
+    setMsgType("FAIL");
   }
   setLoading(false);
 };
@@ -80,7 +69,7 @@ export const verifyOtp = async (otp, setLoading, setMsg, setMsgType) => {
     setMsg(true);
     setMsgType("SUCCESS");
     AsyncStorage.setItem("token", res.data.token);
-    setToken(res.data.token);
+    return res.data.token;
   } catch (error) {
     const errorMsg = catchErrors(error);
     setMsg(errorMsg);
@@ -153,24 +142,25 @@ export const updateProfile = async (
   setLoading(false);
 };
 
-const searchUser = async (value, setUsers, setMsg) => {
+export const searchUser = async (
+  value,
+  setUsers,
+  setMsg,
+  setMsgType,
+  token
+) => {
   try {
-    const res = await axios.post(`${baseURL}/api/signup`, {
-      username,
-      email,
-      password,
-      referal,
+    const res = await axios.get(`${baseURL}/api/search/users/${value}`, {
+      headers: {
+        authorization: token,
+      },
     });
     if (res.status === 200) {
-      setMsg(res.data.msg);
-      setMsgType("SUCCESS");
+      setUsers(res.data);
     }
-    console.log("res.status =>", res.data);
   } catch (error) {
-    console.log("Erors =>", error);
     const errorMsg = catchErrors(error);
     setMsg(errorMsg);
     setMsgType("FAIL");
   }
-  setLoading(false);
 };

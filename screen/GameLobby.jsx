@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import user1 from "../assets/profile/1.jpg";
 import user2 from "../assets/profile/2.jpg";
 import user3 from "../assets/profile/3.jpg";
@@ -31,13 +31,20 @@ import {
 import TextInput from "../components/TextInput";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { ActivityIndicator, Image, Text } from "react-native";
+import { searchUser } from "../utils/authApis";
+import { CredentailsContext } from "../utils/context";
 
 const GameLobby = ({ navigation }) => {
-  const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState([]);
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
+  const context = useContext(CredentailsContext);
 
-  const SearchUser = async (value) => {};
+  const SearchUser = async (value) => {
+    console.log("e =>", value);
+    await searchUser(value, setUsers, setMsg, setMsgType, context.storedToken);
+  };
+  console.log("users=>", users);
   return (
     <KeyboardAvoidingWrapper>
       <StyledContainer>
@@ -45,85 +52,31 @@ const GameLobby = ({ navigation }) => {
         <InnerContainer>
           <PageTitle>Tic Tac Toe</PageTitle>
           <SubTitle>Search User to Play</SubTitle>
-          <Formik
-            initialValues={{ username: "" }}
-            onSubmit={(value) => {
-              findUser(value);
-            }}
-          >
-            {({ handleChange, handleBlur, handleSubmit, values }) => (
+          <Formik initialValues={{ username: "" }}>
+            {({ values }) => (
               <StyledFormArea>
                 <TextInput
                   label={"Enter Username"}
                   placeholder="Search user"
                   placeholderTextColor={Colors.darkLight}
-                  onChangeText={handleChange("username")}
-                  onBlur={handleBlur("username")}
+                  onChangeText={(e) => SearchUser(e)}
                   value={values.name}
                 />
                 <MsgBox type={msgType}>{msg}</MsgBox>
-                {loading ? (
-                  <StyledButton disabled={true}>
-                    <ActivityIndicator size="large" color={Colors.primary} />
-                  </StyledButton>
-                ) : (
-                  <StyledButton onPress={handleSubmit}>
-                    <ButtonText>Search</ButtonText>
-                  </StyledButton>
-                )}
               </StyledFormArea>
             )}
           </Formik>
           <Line />
           <GridContainer>
-            <GridItem>
-              <GridItemImage source={user1} resize="cover" />
-              <GridItemText>Aman</GridItemText>
-            </GridItem>
-            <GridItem>
-              <GridItemImage source={user1} resize="cover" />
-              <GridItemText>Aman</GridItemText>
-            </GridItem>
-            <GridItem>
-              <GridItemImage source={user1} resize="cover" />
-              <GridItemText>Aman</GridItemText>
-            </GridItem>
-            <GridItem>
-              <GridItemImage source={user1} resize="cover" />
-              <GridItemText>Aman</GridItemText>
-            </GridItem>
-            <GridItem>
-              <GridItemImage source={user1} resize="cover" />
-              <GridItemText>Aman</GridItemText>
-            </GridItem>
-            <GridItem>
-              <GridItemImage source={user1} resize="cover" />
-              <GridItemText>Aman</GridItemText>
-            </GridItem>
-            <GridItem>
-              <GridItemImage source={user1} resize="cover" />
-              <GridItemText>Aman</GridItemText>
-            </GridItem>
-            <GridItem>
-              <GridItemImage source={user1} resize="cover" />
-              <GridItemText>Aman</GridItemText>
-            </GridItem>
-            <GridItem>
-              <GridItemImage source={user1} resize="cover" />
-              <GridItemText>Aman</GridItemText>
-            </GridItem>
-            <GridItem>
-              <GridItemImage source={user1} resize="cover" />
-              <GridItemText>Aman</GridItemText>
-            </GridItem>
-            <GridItem>
-              <GridItemImage source={user1} resize="cover" />
-              <GridItemText>Aman</GridItemText>
-            </GridItem>
-            <GridItem>
-              <GridItemImage source={user1} resize="cover" />
-              <GridItemText>Aman</GridItemText>
-            </GridItem>
+            {users.map((user) => (
+              <GridItem key={user._id}>
+                <GridItemImage
+                  source={{ uri: user.profilePicUrl }}
+                  resize="cover"
+                />
+                <GridItemText>{user.username}</GridItemText>
+              </GridItem>
+            ))}
           </GridContainer>
         </InnerContainer>
       </StyledContainer>

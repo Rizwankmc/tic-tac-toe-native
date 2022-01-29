@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import logo from "../assets/tictactoe.jpg";
 import { Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import {
   ButtonText,
@@ -18,14 +18,18 @@ import {
 import TextInput from "../components/TextInput";
 import { ActivityIndicator } from "react-native";
 import { verifyOtp } from "../utils/authApis";
+import { CredentailsContext } from "../utils/context";
 
 const EmailOtp = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
+  const context = useContext(CredentailsContext);
 
   const handleOtp = async (value) => {
-    await verifyOtp(value, setLoading, setMsg, setMsgType);
+    const token = await verifyOtp(value, setLoading, setMsg, setMsgType);
+    if (token);
+    context.setStoredToken(token);
   };
 
   useEffect(() => {
@@ -44,7 +48,7 @@ const EmailOtp = ({ navigation }) => {
           <Formik
             initialValues={{ otp: "" }}
             onSubmit={(value) => {
-              handleOtp(value);
+              handleOtp(value.otp);
             }}
           >
             {({ handleChange, handleBlur, handleSubmit, values }) => (
