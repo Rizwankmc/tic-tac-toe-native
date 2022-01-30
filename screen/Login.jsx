@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ActivityIndicator } from "react-native";
-import logo from "../assets/tictactoe.jpg";
+import logo from "../assets/icon.jpg";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import {
   ButtonText,
@@ -32,28 +32,21 @@ const Login = ({ navigation }) => {
   const context = useContext(CredentailsContext);
 
   useEffect(() => {
-    if (msgType === "SUCCESS") {
-      setMsg("");
-      setMsgType("");
-      console.log("ddd");
-      navigation.navigate("GameLobby");
-    }
     if (msg === "Please verify your email before trying to log in") {
       setMsg("");
       setMsgType("");
       navigation.navigate("EmailOtp");
     }
-  }, [msgType]);
+  }, [msg]);
 
   const handleLogin = async (value) => {
     const data = await loginUser(value, setMsg, setLoading, setMsgType);
-    console.log("ddd =", data);
     if (data) {
       await AsyncStorage.setItem("token", data.token);
       await AsyncStorage.setItem("user", JSON.stringify(data.user));
       context.setStoredToken(data.token);
       context.setUser(data.user);
-      setMsgType("SUCCESS");
+      navigation.navigate("GameLobby");
     }
   };
   return (

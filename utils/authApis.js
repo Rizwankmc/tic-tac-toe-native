@@ -50,11 +50,13 @@ export const loginUser = async (value, setMsg, setLoading, setMsgType) => {
   setLoading(true);
   try {
     const res = await axios.post(`${baseURL}/api/auth`, value);
+    console.log("data=>", res.data);
     if (res.data) {
       return res.data;
     }
     return;
   } catch (error) {
+    console.log("error =>", JSON.stringify(error));
     const errorMsg = catchErrors(error);
     setMsg(errorMsg);
     setMsgType("FAIL");
@@ -165,11 +167,12 @@ export const searchUser = async (
 
 export const onlineUser = async (setUsers, setMsg, setMsgType, token) => {
   try {
-    const res = await axios.get(`${baseURL}/api/online/users`, {
+    const res = await axios.get(`${baseURL}/api/search/online/users`, {
       headers: {
         authorization: token,
       },
     });
+    console.log("online =>", res.data);
     if (res.status === 200) {
       setUsers(res.data);
     }

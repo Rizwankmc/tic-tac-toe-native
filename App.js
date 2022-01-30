@@ -3,11 +3,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppLoading from "expo-app-loading";
 import { useState } from "react";
 import { CredentailsContext } from "./utils/context";
+import { socketConnection } from "./utils/socket";
 
 export default function App() {
   const [appReady, setAppReady] = useState(false);
   const [storedToken, setStoredToken] = useState(null);
   const [user, setUser] = useState({});
+  const [socket, setSocket] = useState(null);
   const [selectedChatUser, setSelectedChatUser] = useState();
 
   const checkLoginCredentials = async () => {
@@ -16,6 +18,7 @@ export default function App() {
     if (result) {
       setStoredToken(result);
       setUser(JSON.parse(user));
+      setSocket(socketConnection(result));
     } else {
       setStoredToken(null);
       setUser({});
@@ -40,6 +43,8 @@ export default function App() {
         setUser,
         selectedChatUser,
         setSelectedChatUser,
+        socket,
+        setSocket,
       }}
     >
       <RootStack />

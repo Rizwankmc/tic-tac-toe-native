@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import React, { useState, useEffect } from "react";
 import { ActivityIndicator } from "react-native";
-import logo from "../assets/tictactoe.jpg";
+import logo from "../assets/icon.jpg";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import {
   ButtonText,

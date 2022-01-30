@@ -7,4 +7,6 @@ export const CredentailsContext = createContext({
   setUser: () => {},
   selectedChatUSer: null,
   setSelectedChatUser: () => {},
+  socket: null,
+  setSocket: () => {},
 });

@@ -8,7 +8,6 @@ const catchErrors = (error) => {
   } else {
     errorMsg = error.message;
   }
-  console.log("Errors =>", errorMsg);
   return errorMsg;
 };
 

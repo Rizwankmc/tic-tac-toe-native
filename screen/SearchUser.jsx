@@ -19,15 +19,23 @@ import TextInput from "../components/TextInput";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { searchUser } from "../utils/authApis";
 import { CredentailsContext } from "../utils/context";
+import ModalWrapper from "../components/Modal";
 
 const SearchUser = ({ navigation }) => {
   const [users, setUsers] = useState([]);
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
+  const [show, setShow] = useState(false);
+  const [selectedUser, setSelectedUser] = useState({});
   const context = useContext(CredentailsContext);
 
   const handleSearch = async (value) => {
     await searchUser(value, setUsers, setMsg, setMsgType, context.storedToken);
+  };
+
+  const handleUserSelect = async (user) => {
+    setSelectedUser(user);
+    setShow(true);
   };
   return (
     <KeyboardAvoidingWrapper>
@@ -54,7 +62,10 @@ const SearchUser = ({ navigation }) => {
           <GridContainer>
             {users
               ? users.map((user) => (
-                  <GridItem key={user._id} onPress={() => console.log("ss")}>
+                  <GridItem
+                    key={user._id}
+                    onPress={() => handleUserSelect(user)}
+                  >
                     <GridItemImage
                       source={{ uri: user.profilePicUrl }}
                       resize="cover"
@@ -64,6 +75,12 @@ const SearchUser = ({ navigation }) => {
                 ))
               : ""}
           </GridContainer>
+          <ModalWrapper
+            show={show}
+            setShow={setShow}
+            screen="search"
+            user={selectedUser}
+          />
         </InnerContainer>
       </StyledContainer>
     </KeyboardAvoidingWrapper>

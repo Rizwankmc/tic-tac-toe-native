@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import logo from "../assets/tictactoe.jpg";
+import logo from "../assets/icon.jpg";
 import { Formik } from "formik";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useContext, useEffect, useState } from "react";
