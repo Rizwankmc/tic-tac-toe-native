@@ -169,16 +169,50 @@ position: absolute;
 export const StyledModalWrapper = styled.View`
 justify-content: center;
 align-items: center;
-background-color : #00BCD4; 
-height: 300px;
+background-color : ${secondary}; 
+height: 70%;
 width: 80%;
 border-radius:10px; 
 border-width: 1px;
 border-color: #fff;  
-margin-top: 80px;
-margin-left: 40px;
+margin-top: 100px;
+margin-left:auto;
+margin-right: auto;
+position:relative;
 `;
 export const ProfileImage = styled.Image`
   width: 250px;
   height: 250px;
+`;
+
+export const StyledCloseComponent = styled.Text`
+position:absolute;
+top:5px;
+right: 5px;
+`;
+export const ModalClose = styled.Image`
+  height:2px;
+  width:100%;
+`;
+export const PlayerImage = styled.Image`
+height: 150px;
+width: 150px;
+border-radius:8px;
+`;
+export const PlayerBox = styled.View`
+display: flex;
+flex-direction: column;
+justify-content: center;
+`;
+export const Player = styled.View`
+margin: 20px auto;
+padding: 10px;
+border-radius: 5px;
+background-color: ${brand};
+`;
+export const PlayerText = styled.Text`
+font-size: 18px;
+color: ${secondary};
+text-align: center;
+margin-top:15px;
 `;

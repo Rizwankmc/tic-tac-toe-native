@@ -1,10 +1,13 @@
 import { Button, Modal, Text, View } from "react-native";
-import { StyledModalWrapper, StyledModal } from "./styles";
+import close from '../assets/close.png';
+import user1 from '../assets/profile/1.jpg';
+import user2 from '../assets/profile/2.jpg'
+import { StyledModalWrapper, StyledModal,StyledCloseComponent,PlayerImage, ModalClose, PlayerBox, Player, PlayerText} from "./styles";
 
 const ModalWrapper = ({ show, setShow }) => {
   return (
-    <StyledModal animationType="slide"
-    transparent={false}
+    <StyledModal animationType="fade"
+    transparent={true}
     visible={show}
     onRequestClose={() => {
       Alert.alert("Modal has been closed.");
@@ -12,8 +15,23 @@ const ModalWrapper = ({ show, setShow }) => {
     }}>
      
       <StyledModalWrapper>
-        <Button title="Hide modal" onPress={() => setShow(false)} />
-        <Text>Hello!</Text>
+        <StyledCloseComponent onPress={() => setShow(false)}>
+          <ModalClose source={close} />
+        </StyledCloseComponent>
+        <PlayerBox>
+          <Player>
+            <PlayerImage source={user1} />
+            <PlayerText>
+              Rizwan Ahmad
+            </PlayerText>
+          </Player>
+          <Player>
+          <PlayerImage source={user2} />
+          <PlayerText>
+              Farhaj
+            </PlayerText>
+          </Player>
+        </PlayerBox>
       </StyledModalWrapper>
     </StyledModal>
   );
