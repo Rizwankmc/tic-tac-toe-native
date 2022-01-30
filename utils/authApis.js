@@ -158,6 +158,7 @@ export const searchUser = async (
   } catch (error) {
     const errorMsg = catchErrors(error);
     setMsg(errorMsg);
+    setUsers([]);
     setMsgType("FAIL");
   }
 };
