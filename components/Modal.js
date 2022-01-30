@@ -23,10 +23,13 @@ import {
 
 const ModalWrapper = ({ show, setShow, screen, user }) => {
   return (
-    <StyledModal
-      animationType="fade"
-      transparent={true}
+    <Modal
+      animationType="slide"
+      transparent={false}
       visible={show}
+      hasBackdrop={true}
+      backdropOpacity={0.8}
+      backdropColor={"rgba(255, 0, 0, 0.8)"}
       onRequestClose={() => {
         Alert.alert("Modal has been closed.");
         setShow(false);
@@ -77,7 +80,7 @@ const ModalWrapper = ({ show, setShow, screen, user }) => {
           </>
         )}
       </StyledModalWrapper>
-    </StyledModal>
+    </Modal>
   );
 };
 

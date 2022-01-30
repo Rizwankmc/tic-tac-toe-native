@@ -197,6 +197,13 @@ export const StyledCloseComponent = styled.Text`
   position: absolute;
   top: 5px;
   right: 5px;
+  height: 40px;
+  width: 40px;
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 40px;
 `;
 export const ModalClose = styled.Image`
   height: 20px;
@@ -283,3 +290,153 @@ export const PlayerVSImage = styled.Image`
   width: 50px;
   margin-top: 80px;
 `;
+
+export const Gamecontainer = styled.View`
+ background-color: #158b7f;
+ text-align: center;
+ height: 100vh;
+ padding:20px;
+ `;
+
+export const WelcomeText = styled.Text`
+  color: white;
+  font-size: 22px;
+  font-weight: 700;
+  `;
+
+export const GamePlayerBox = styled.View`
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    margin-top: 50px;
+  `;
+
+export const GamePlayer = styled.View`
+    color: red;
+    width: 50%;
+    flexDirection: column;
+  `;
+export const Playericon = styled.View`
+    background-color: #e0a56b;
+    width: 100%;
+    padding: 5px;
+    margin: 10px auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 10px;
+    border-radius: 5px;
+  `;
+
+export const Gamebg = styled.View`
+    background-color: #000;
+    padding: 30px;
+    margin-top: 40px;
+    border-radius: 8px;
+    width: 80%;
+    margin: 80px auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    height: 268px;
+    max-width: 400px;
+    color: white;
+  `;
+export const Gamerow1 = styled.Text`
+color: white;
+  `;
+export const GameBorder = styled.View`
+    display: flex;
+    flex-direction: row;
+    height: 68px;
+  `;
+export const Box1 = styled.View`
+    width: 33%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+    border:2px solid white;
+    border-top-color:transparent;
+    border-left-color:transparent;
+  `;
+export const Box2 = styled.View`
+    width: 33%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+    border:2px solid white;
+    border-top-color:transparent;
+  `;
+export const ox3 = styled.View`
+    width: 33%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+    border:2px solid white;
+    border-top-color:transparent;
+    border-right-color:transparent;
+  `;
+export const Box4 = styled.View`
+    width: 33%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+    border:2px solid white;
+    border-left-color:transparent;
+  `;
+export const Box5 = styled.View`
+    width: 33%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+    border:2px solid white;
+  `;
+export const Box6 = styled.View`
+    width: 33%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+    border:2px solid white;
+    border-right-color:transparent;
+  `;
+export const Box7 = styled.View`
+    width: 33%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+    border:2px solid white;
+    border-left-color:transparent;
+    border-bottom-color:transparent;
+  `;
+export const Box8 = styled.View`
+    width: 33%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+    border:2px solid white;
+    border-bottom-color:transparent;
+  `;
+export const Box9 = styled.View`
+    width: 33%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+    border:2px solid white;
+    border-right-color:transparent;
+    border-bottom-color:transparent;
+  `;
