@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
+import ModalWrapper from "../components/Modal";
 import {
   ButtonText,
   GridContainer,
@@ -9,25 +10,29 @@ import {
   GridItemText,
   InnerContainer,
   Line,
+  MsgBox,
   PageTitle,
   StyledButton,
   StyledContainer,
   SubTitle,
 } from "../components/styles";
-import { searchUser } from "../utils/authApis";
+import { onlineUser } from "../utils/authApis";
 import { CredentailsContext } from "../utils/context";
 
 const GameLobby = ({ navigation }) => {
   const [users, setUsers] = useState([]);
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
+  const [show, setShow] = useState(false);
   const context = useContext(CredentailsContext);
 
-  const onlineUsers = async (value) => {
-    console.log("e =>", value);
-    await searchUser(value, setUsers, setMsg, setMsgType, context.storedToken);
+  const onlineUsers = async () => {
+    await onlineUser(setUsers, setMsg, setMsgType, context.storedToken);
   };
-  console.log("users=>", users);
+
+  useEffect(() => {
+    onlineUsers();
+  }, []);
   return (
     <KeyboardAvoidingWrapper>
       <StyledContainer>
@@ -47,10 +52,12 @@ const GameLobby = ({ navigation }) => {
               </GridItem>
             ))}
           </GridContainer>
+          <MsgBox type={msgType}>{msg}</MsgBox>
           <SubTitle>Play random match</SubTitle>
           <StyledButton>
-            <ButtonText>Click here</ButtonText>
+            <ButtonText onPress={() => setShow(true)}>Click here</ButtonText>
           </StyledButton>
+          <ModalWrapper show={show} setShow={setShow} />
         </InnerContainer>
       </StyledContainer>
     </KeyboardAvoidingWrapper>
