@@ -178,3 +178,7 @@ border-color: #fff;
 margin-top: 80px;
 margin-left: 40px;
 `;
+export const ProfileImage = styled.Image`
+  width: 250px;
+  height: 250px;
+`;

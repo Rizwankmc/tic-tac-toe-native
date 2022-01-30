@@ -1,5 +1,4 @@
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import catchErrors from "./catchError";
 import { baseURL } from "./constants";
 
@@ -51,9 +50,10 @@ export const loginUser = async (value, setMsg, setLoading, setMsgType) => {
   setLoading(true);
   try {
     const res = await axios.post(`${baseURL}/api/auth`, value);
-    AsyncStorage.setItem("token", res.data.token);
-    setMsgType("SUCCESS");
-    return res.data.token;
+    if (res.data) {
+      return res.data;
+    }
+    return;
   } catch (error) {
     const errorMsg = catchErrors(error);
     setMsg(errorMsg);
@@ -66,10 +66,7 @@ export const verifyOtp = async (otp, setLoading, setMsg, setMsgType) => {
   setLoading(true);
   try {
     const res = await axios.post(`${baseURL}/api/onboarding/${otp}`);
-    setMsg(true);
-    setMsgType("SUCCESS");
-    AsyncStorage.setItem("token", res.data.token);
-    return res.data.token;
+    return res.data;
   } catch (error) {
     const errorMsg = catchErrors(error);
     setMsg(errorMsg);

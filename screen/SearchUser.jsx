@@ -27,10 +27,8 @@ const SearchUser = ({ navigation }) => {
   const context = useContext(CredentailsContext);
 
   const handleSearch = async (value) => {
-    console.log("e =>", value);
     await searchUser(value, setUsers, setMsg, setMsgType, context.storedToken);
   };
-  console.log("users=>", users);
   return (
     <KeyboardAvoidingWrapper>
       <StyledContainer>
