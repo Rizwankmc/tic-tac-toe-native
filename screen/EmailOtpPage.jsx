@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import logo from "../assets/tictactoe.jpg";
 import { Formik } from "formik";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useContext, useEffect, useState } from "react";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import {
@@ -27,9 +28,14 @@ const EmailOtp = ({ navigation }) => {
   const context = useContext(CredentailsContext);
 
   const handleOtp = async (value) => {
-    const token = await verifyOtp(value, setLoading, setMsg, setMsgType);
-    if (token);
-    context.setStoredToken(token);
+    const data = await verifyOtp(value, setLoading, setMsg, setMsgType);
+    if (data) {
+      await AsyncStorage.setItem("token", data.token);
+      await AsyncStorage.setItem("user", JSON.stringify(data.user));
+      context.setStoredToken(data.token);
+      context.setUser(data.user);
+      setMsgType("SUCCESS");
+    }
   };
 
   useEffect(() => {

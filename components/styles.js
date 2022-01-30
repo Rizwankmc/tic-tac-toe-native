@@ -159,3 +159,8 @@ export const GridItemText = styled.Text`
   font-size: 15px;
   font-weight: bold;
 `;
+
+export const ProfileImage = styled.Image`
+  width: 250px;
+  height: 250px;
+`;

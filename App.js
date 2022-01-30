@@ -7,13 +7,17 @@ import { CredentailsContext } from "./utils/context";
 export default function App() {
   const [appReady, setAppReady] = useState(false);
   const [storedToken, setStoredToken] = useState(null);
+  const [user, setUser] = useState({});
 
   const checkLoginCredentials = async () => {
     const result = await AsyncStorage.getItem("token");
+    const user = await AsyncStorage.getItem("user");
     if (result) {
       setStoredToken(result);
+      setUser(JSON.parse(user));
     } else {
       setStoredToken(null);
+      setUser({});
     }
   };
 
@@ -27,7 +31,9 @@ export default function App() {
     );
   }
   return (
-    <CredentailsContext.Provider value={{ storedToken, setStoredToken }}>
+    <CredentailsContext.Provider
+      value={{ storedToken, setStoredToken, user, setUser }}
+    >
       <RootStack />
     </CredentailsContext.Provider>
   );

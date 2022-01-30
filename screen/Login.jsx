@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ActivityIndicator } from "react-native";
 import logo from "../assets/tictactoe.jpg";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
@@ -45,8 +46,15 @@ const Login = ({ navigation }) => {
   }, [msgType]);
 
   const handleLogin = async (value) => {
-    const token = await loginUser(value, setMsg, setLoading, setMsgType);
-    if (token) context.setStoredToken(token);
+    const data = await loginUser(value, setMsg, setLoading, setMsgType);
+    console.log("ddd =", data);
+    if (data) {
+      await AsyncStorage.setItem("token", data.token);
+      await AsyncStorage.setItem("user", JSON.stringify(data.user));
+      context.setStoredToken(data.token);
+      context.setUser(data.user);
+      setMsgType("SUCCESS");
+    }
   };
   return (
     <KeyboardAvoidingWrapper>
