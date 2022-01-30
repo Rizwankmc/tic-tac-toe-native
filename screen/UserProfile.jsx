@@ -18,12 +18,12 @@ import { CredentailsContext } from "../utils/context";
 const UserProfile = () => {
   const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
   const [profilePhoto, setProfilePhoto] = useState();
-  const { user } = useContext(CredentailsContext);
+  const { user, setStoredToken, setUser } = useContext(CredentailsContext);
 
   const handleLogout = () => {
     AsyncStorage.clear();
-    context.setStoredToken(null);
-    context.setUser({});
+    setStoredToken(null);
+    setUser({});
   };
 
   const pickImage = async () => {
