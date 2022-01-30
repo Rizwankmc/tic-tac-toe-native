@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
-import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useContext, useState } from "react";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
@@ -16,52 +16,49 @@ import { Platform } from "react-native";
 import { CredentailsContext } from "../utils/context";
 
 const UserProfile = () => {
+  const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
   const [profilePhoto, setProfilePhoto] = useState();
   const { user } = useContext(CredentailsContext);
 
   const handleLogout = () => {
     AsyncStorage.clear();
     context.setStoredToken(null);
-  };
-
-  const getPermission = async () => {
-    if (Platform.OS !== "web") {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      return status;
-    }
+    context.setUser({});
   };
 
   const pickImage = async () => {
-    try {
+    const { status_roll } = await Permissions.askAsync(
+      Permissions.MEDIA_LIBRARY
+    );
+    // No permissions request is necessary for launching the image library
+    console.log("status", status_roll);
+    if (status_roll === "granted") {
       let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypesOptions.Images,
-        allowEditing: true,
-        aspect: [1, 1],
-        quality: 0.5,
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
       });
+
+      console.log(result);
+
       if (!result.cancelled) {
         setProfilePhoto(result.uri);
       }
-    } catch (error) {
-      console.log("Error in image pick");
     }
   };
 
-  const addProfilePhoto = async () => {
-    const status = await getPermission();
-    if (status !== "granted") {
-      alert("We need permission to access your camera roll");
-      return;
-    }
-    pickImage();
-  };
   return (
     <KeyboardAvoidingWrapper>
       <StyledContainer>
         <StatusBar style="dark" />
         <InnerContainer>
           <PageTitle>UserProfile</PageTitle>
+
           <ProfileImage source={{ uri: user.profilePicUrl }}></ProfileImage>
+          <StyledButton onPress={pickImage}>
+            <ButtonText>Change Profile</ButtonText>
+          </StyledButton>
           <StyledButton onPress={handleLogout}>
             <ButtonText>Logout</ButtonText>
           </StyledButton>

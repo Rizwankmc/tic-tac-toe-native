@@ -19,7 +19,7 @@ const { primary, secondary, tertiary, darkLight, brand, green, red } = Colors;
 export const StyledContainer = styled.View`
   flex: 1;
   padding: 25px;
-  padding-top: ${StatusHeightBar + 30}px;
+  padding-top: ${StatusHeightBar + 10}px;
   background-color: ${primary};
 `;
 
@@ -163,4 +163,34 @@ export const GridItemText = styled.Text`
 export const ProfileImage = styled.Image`
   width: 250px;
   height: 250px;
+`;
+
+export const ChatUser = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 5px;
+`;
+
+export const ChatUserImage = styled.Image`
+  width: 40px;
+  height: 40px;
+  border-radius: 50;
+  margin: 5px;
+`;
+
+export const ChatUserTextContianer = styled.View`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 15px;
+`;
+
+export const ChatUserName = styled.Text`
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+export const ChatUserLastMessage = styled.Text`
+  font-size: 15px;
 `;

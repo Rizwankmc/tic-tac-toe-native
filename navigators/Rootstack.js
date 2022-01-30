@@ -30,6 +30,12 @@ const TabNavigator = () => (
   <Tab.Navigator
     screenOptions={({ route }) => ({
       headerShown: false,
+      headerStyle: {
+        backgroundColor: "transparent",
+      },
+      headerTintColor: Colors.tertiary,
+      headerTransparent: true,
+
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
 
