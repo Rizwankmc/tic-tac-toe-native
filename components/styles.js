@@ -145,7 +145,7 @@ export const GridContainer = styled.View`
   width: 100%;
 `;
 
-export const GridItem = styled.View`
+export const GridItem = styled.TouchableOpacity`
   background-color: #f1f1f1;
   align-items: center;
   margin: 5px;

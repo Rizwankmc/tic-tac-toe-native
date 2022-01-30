@@ -164,3 +164,20 @@ export const searchUser = async (
     setMsgType("FAIL");
   }
 };
+
+export const onlineUser = async (setUsers, setMsg, setMsgType, token) => {
+  try {
+    const res = await axios.get(`${baseURL}/api/online/users`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    if (res.status === 200) {
+      setUsers(res.data);
+    }
+  } catch (error) {
+    const errorMsg = catchErrors(error);
+    setMsg(errorMsg);
+    setMsgType("FAIL");
+  }
+};
