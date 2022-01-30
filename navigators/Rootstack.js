@@ -20,6 +20,7 @@ import GameLobby from "../screen/GameLobby";
 import SearchUser from "../screen/SearchUser";
 import Chat from "../screen/Chat";
 import UserProfile from "../screen/UserProfile";
+import Game from "../screen/Game";
 
 //import Game from "../screen/Game";
 
@@ -86,6 +87,7 @@ const RootStack = () => {
               },
             }}
           >
+            <Stack.Screen name="game" component={Game} />
             {storedToken ? (
               <Stack.Screen name="lobby" component={TabNavigator} />
             ) : (
