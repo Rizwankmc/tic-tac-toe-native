@@ -1,5 +1,12 @@
 import styled from "styled-components";
-import { View, Image, Text, TextInput, TouchableOpacity, Modal } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Modal,
+} from "react-native";
 import Constants from "expo-constants";
 
 const StatusHeightBar = Constants.statusBarHeight;
@@ -161,24 +168,24 @@ export const GridItemText = styled.Text`
 `;
 
 export const StyledModal = styled.Modal`
-height: 400px;
-width: 350px;
-background-color: #f1f1f1;
-position: absolute;
+  height: 400px;
+  width: 350px;
+  background-color: #f1f1f1;
+  position: absolute;
 `;
 export const StyledModalWrapper = styled.View`
-justify-content: center;
-align-items: center;
-background-color : ${secondary}; 
-height: 70%;
-width: 80%;
-border-radius:10px; 
-border-width: 1px;
-border-color: #fff;  
-margin-top: 100px;
-margin-left:auto;
-margin-right: auto;
-position:relative;
+  justify-content: center;
+  align-items: center;
+  background-color: ${secondary};
+  height: 70%;
+  width: 95%;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: #fff;
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
 `;
 export const ProfileImage = styled.Image`
   width: 250px;
@@ -186,36 +193,44 @@ export const ProfileImage = styled.Image`
 `;
 
 export const StyledCloseComponent = styled.Text`
-position:absolute;
-top:5px;
-right: 5px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
 `;
 export const ModalClose = styled.Image`
-  height:2px;
-  width:100%;
+  height: 20px;
+  width: 20px;
 `;
 export const PlayerImage = styled.Image`
-height: 150px;
-width: 150px;
-border-radius:8px;
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
 `;
 export const PlayerBox = styled.View`
-display: flex;
-flex-direction: column;
-justify-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80%;
+  margin-bottom:80px;
 `;
 export const Player = styled.View`
-margin: 20px auto;
-padding: 10px;
-border-radius: 5px;
-background-color: ${brand};
+  margin: 20px 5px;
+  padding: 10px;
+  text-align:center;
+  border-radius: 5px;
 `;
 export const PlayerText = styled.Text`
-font-size: 18px;
-color: ${secondary};
-text-align: center;
-margin-top:15px;
+  font-size: 18px;
+  color: black;
+  text-align: center;
+  margin-top: 15px;
+  background-color: ${brand};
+  color: white;
+  padding:8px 20px;
+  font-size: 15px;
+  border-radius: 20px;
 `;
+
 export const ChatUser = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
@@ -244,4 +259,24 @@ export const ChatUserName = styled.Text`
 
 export const ChatUserLastMessage = styled.Text`
   font-size: 15px;
+`;
+
+export const StyledButtonModal = styled.TouchableOpacity`
+  padding: 15px;
+  background-color: ${brand};
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  margin-vertical: 5px;
+  height: 60px;
+  width: 60%;
+`;
+export const PlayerVs = styled.View`
+height: 50px;
+width: 50px;
+`;
+
+export const PlayerVSImage = styled.View`
+height: 50px;
+width: 50px;
 `;
