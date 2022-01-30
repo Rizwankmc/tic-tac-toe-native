@@ -111,7 +111,8 @@ export const ButtonText = styled.Text`
 export const MsgBox = styled.Text`
   text-align: center;
   font-size: 13px;
-  color: ${(props) => (props.type === "SUCCESS" ? green : red)};
+  color: ${(props) =>
+    props.type === "SUCCESS" ? green : props.type === "waiting" ? brand : red};
 `;
 
 export const Line = styled.View`
@@ -211,12 +212,12 @@ export const PlayerBox = styled.View`
   flex-direction: row;
   justify-content: space-between;
   width: 80%;
-  margin-bottom:80px;
+  margin-bottom: 10px;
 `;
 export const Player = styled.View`
   margin: 20px 5px;
   padding: 10px;
-  text-align:center;
+  text-align: center;
   border-radius: 5px;
 `;
 export const PlayerText = styled.Text`
@@ -226,7 +227,7 @@ export const PlayerText = styled.Text`
   margin-top: 15px;
   background-color: ${brand};
   color: white;
-  padding:8px 20px;
+  padding: 8px 20px;
   font-size: 15px;
   border-radius: 20px;
 `;
@@ -262,21 +263,23 @@ export const ChatUserLastMessage = styled.Text`
 `;
 
 export const StyledButtonModal = styled.TouchableOpacity`
-  padding: 15px;
-  background-color: ${brand};
+  padding: 5px;
+  background-color: ${red};
   justify-content: center;
   align-items: center;
   border-radius: 5px;
   margin-vertical: 5px;
-  height: 60px;
+  height: 40px;
   width: 60%;
+  margin-top: 10px;
 `;
 export const PlayerVs = styled.View`
-height: 50px;
-width: 50px;
+  height: 50px;
+  width: 50px;
 `;
 
-export const PlayerVSImage = styled.View`
-height: 50px;
-width: 50px;
+export const PlayerVSImage = styled.Image`
+  height: 50px;
+  width: 50px;
+  margin-top: 80px;
 `;

@@ -8,6 +8,7 @@ export default function App() {
   const [appReady, setAppReady] = useState(false);
   const [storedToken, setStoredToken] = useState(null);
   const [user, setUser] = useState({});
+  const [selectedChatUser, setSelectedChatUser] = useState();
 
   const checkLoginCredentials = async () => {
     const result = await AsyncStorage.getItem("token");
@@ -32,7 +33,14 @@ export default function App() {
   }
   return (
     <CredentailsContext.Provider
-      value={{ storedToken, setStoredToken, user, setUser }}
+      value={{
+        storedToken,
+        setStoredToken,
+        user,
+        setUser,
+        selectedChatUser,
+        setSelectedChatUser,
+      }}
     >
       <RootStack />
     </CredentailsContext.Provider>

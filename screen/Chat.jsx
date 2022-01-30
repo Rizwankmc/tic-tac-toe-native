@@ -15,46 +15,52 @@ import {
 import { CredentailsContext } from "../utils/context";
 
 const Chat = () => {
-  const { user } = useContext(CredentailsContext);
+  const { user, selectedChatUser } = useContext(CredentailsContext);
   return (
     <KeyboardAvoidingWrapper>
       <StyledContainer>
         <StatusBar style="dark" />
         <InnerContainer>
-          <PageTitle>Chat</PageTitle>
-          <ChatUser>
-            <ChatUserImage
-              source={{ uri: user.profilePicUrl }}
-              resize="cover"
-            />
-            <ChatUserTextContianer>
-              <ChatUserName>username</ChatUserName>
-              <ChatUserLastMessage>message</ChatUserLastMessage>
-            </ChatUserTextContianer>
-          </ChatUser>
-          <Line />
-          <ChatUser>
-            <ChatUserImage
-              source={{ uri: user.profilePicUrl }}
-              resize="cover"
-            />
-            <ChatUserTextContianer>
-              <ChatUserName>username</ChatUserName>
-              <ChatUserLastMessage>message</ChatUserLastMessage>
-            </ChatUserTextContianer>
-          </ChatUser>
-          <Line />
-          <ChatUser>
-            <ChatUserImage
-              source={{ uri: user.profilePicUrl }}
-              resize="cover"
-            />
-            <ChatUserTextContianer>
-              <ChatUserName>username</ChatUserName>
-              <ChatUserLastMessage>message</ChatUserLastMessage>
-            </ChatUserTextContianer>
-          </ChatUser>
-          <Line />
+          {selectedChatUser ? (
+            <></>
+          ) : (
+            <>
+              <PageTitle>Chat</PageTitle>
+              <ChatUser>
+                <ChatUserImage
+                  source={{ uri: user.profilePicUrl }}
+                  resize="cover"
+                />
+                <ChatUserTextContianer>
+                  <ChatUserName>username</ChatUserName>
+                  <ChatUserLastMessage>message</ChatUserLastMessage>
+                </ChatUserTextContianer>
+              </ChatUser>
+              <Line />
+              <ChatUser>
+                <ChatUserImage
+                  source={{ uri: user.profilePicUrl }}
+                  resize="cover"
+                />
+                <ChatUserTextContianer>
+                  <ChatUserName>username</ChatUserName>
+                  <ChatUserLastMessage>message</ChatUserLastMessage>
+                </ChatUserTextContianer>
+              </ChatUser>
+              <Line />
+              <ChatUser>
+                <ChatUserImage
+                  source={{ uri: user.profilePicUrl }}
+                  resize="cover"
+                />
+                <ChatUserTextContianer>
+                  <ChatUserName>username</ChatUserName>
+                  <ChatUserLastMessage>message</ChatUserLastMessage>
+                </ChatUserTextContianer>
+              </ChatUser>
+              <Line />
+            </>
+          )}
         </InnerContainer>
       </StyledContainer>
     </KeyboardAvoidingWrapper>

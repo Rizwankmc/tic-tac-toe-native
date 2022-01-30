@@ -5,4 +5,6 @@ export const CredentailsContext = createContext({
   setStoredToken: () => {},
   user: {},
   setUser: () => {},
+  selectedChatUSer: null,
+  setSelectedChatUser: () => {},
 });

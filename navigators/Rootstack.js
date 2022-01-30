@@ -29,12 +29,15 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = () => (
   <Tab.Navigator
     screenOptions={({ route }) => ({
-      headerShown: false,
       headerStyle: {
         backgroundColor: "transparent",
       },
       headerTintColor: Colors.tertiary,
       headerTransparent: true,
+      headerTitle: "",
+      headerLeftContainerStyle: {
+        paddingLeft: 20,
+      },
 
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
@@ -74,11 +77,9 @@ const RootStack = () => {
           <Stack.Navigator
             initialRouteName="Login"
             screenOptions={{
-              headerStyle: {
-                backgroundColor: "transparent",
-              },
               headerTintColor: Colors.tertiary,
-              headerTransparent: true,
+              headerShadowVisible: false,
+              headerShown: false,
               headerTitle: "",
               headerLeftContainerStyle: {
                 paddingLeft: 20,
