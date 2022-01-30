@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { View, Image, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Image, Text, TextInput, TouchableOpacity, Modal } from "react-native";
 import Constants from "expo-constants";
 
 const StatusHeightBar = Constants.statusBarHeight;
@@ -158,4 +158,23 @@ export const GridItemImage = styled.Image`
 export const GridItemText = styled.Text`
   font-size: 15px;
   font-weight: bold;
+`;
+
+export const StyledModal = styled.Modal`
+height: 400px;
+width: 350px;
+background-color: #f1f1f1;
+position: absolute;
+`;
+export const StyledModalWrapper = styled.View`
+justify-content: center;
+align-items: center;
+background-color : #00BCD4; 
+height: 300px;
+width: 80%;
+border-radius:10px; 
+border-width: 1px;
+border-color: #fff;  
+margin-top: 80px;
+margin-left: 40px;
 `;

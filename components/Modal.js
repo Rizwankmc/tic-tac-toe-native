@@ -1,21 +1,21 @@
 import { Button, Modal, Text, View } from "react-native";
+import { StyledModalWrapper, StyledModal } from "./styles";
 
 const ModalWrapper = ({ show, setShow }) => {
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={show}
-      onRequestClose={() => {
-        Alert.alert("Modal has been closed.");
-        setShow(!modalVisible);
-      }}
-    >
-      <View style={{ flex: 1 }}>
-        <Text>Hello!</Text>
+    <StyledModal animationType="slide"
+    transparent={false}
+    visible={show}
+    onRequestClose={() => {
+      Alert.alert("Modal has been closed.");
+      setShow(!modalVisible);
+    }}>
+     
+      <StyledModalWrapper>
         <Button title="Hide modal" onPress={() => setShow(false)} />
-      </View>
-    </Modal>
+        <Text>Hello!</Text>
+      </StyledModalWrapper>
+    </StyledModal>
   );
 };
 

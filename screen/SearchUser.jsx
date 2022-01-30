@@ -54,7 +54,7 @@ const SearchUser = ({ navigation }) => {
           </Formik>
           <Line />
           <GridContainer>
-            {users.map((user) => (
+            {users?.map((user) => (
               <GridItem key={user._id} onPress={() => console.log("ss")}>
                 <GridItemImage
                   source={{ uri: user.profilePicUrl }}
