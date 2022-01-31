@@ -87,7 +87,6 @@ const RootStack = () => {
               },
             }}
           >
-            {/*<Stack.Screen name="game" component={Game} />*/}
             {storedToken ? (
               <Stack.Screen name="lobby" component={TabNavigator} />
             ) : (
@@ -97,6 +96,7 @@ const RootStack = () => {
                 <Stack.Screen name="EmailOtp" component={EmailOtp} />
               </>
             )}
+            <Stack.Screen name="Game" component={Game} />
           </Stack.Navigator>
         </NavigationContainer>
       )}

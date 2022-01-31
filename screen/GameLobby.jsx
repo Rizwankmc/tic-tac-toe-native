@@ -26,6 +26,7 @@ const GameLobby = ({ navigation }) => {
   const [show, setShow] = useState(false);
   const [modelType, setModelType] = useState("");
   const [modalData, setModalData] = useState({});
+  const [selectedUser, setSelectedUser] = useState({});
   const context = useContext(CredentailsContext);
 
   const onlineUsers = async () => {
@@ -34,9 +35,8 @@ const GameLobby = ({ navigation }) => {
 
   const handleChallengeUser = async (user) => {
     context.socket.emit("challenge", {
-      challengeTo: user._id,
-      challengeBy: context.user._id,
-      playerName: context.user.username,
+      challengeTo: user,
+      challengeBy: context.user,
     });
     setModelType("challenge");
     setShow(true);
@@ -57,14 +57,13 @@ const GameLobby = ({ navigation }) => {
       setModelType("newChallenge");
       setModalData(data);
       setShow(true);
-    });
-
-    context.socket.on("challengeRejected", (data) => {
-      console.log("Challenge Rejected", data);
+      console.log("new cha");
     });
 
     context.socket.on("challengeAccepted", (data) => {
-      console.log("Challenge Accepted", data);
+      setModelType("challenge");
+      setModalData(data);
+      setShow(true);
     });
   }, []);
   return (
@@ -100,6 +99,7 @@ const GameLobby = ({ navigation }) => {
             screen={modelType}
             modalData={modalData}
             user={context.user}
+            navigation={navigation}
           />
         </InnerContainer>
       </StyledContainer>

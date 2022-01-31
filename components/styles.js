@@ -440,3 +440,49 @@ export const Box9 = styled.View`
   border-right-color: transparent;
   border-bottom-color: transparent;
 `;
+
+export const NewChallangeBox = styled.View`
+  width: 100%;
+  margin: 20px auto;
+`;
+export const NewChallanagePlayer = styled.View`
+  margin: 0px auto;
+`;
+export const AcceptButton = styled.Text`
+  color: ${primary};
+  font-size: 16px;
+`;
+export const RejectButton = styled.Text`
+  color: ${primary};
+  font-size: 16px;
+`;
+export const AcceptButtonModal = styled.TouchableOpacity`
+  padding: 5px;
+  background-color: ${brand};
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  margin-vertical: 5px;
+  height: 40px;
+  width: 35%;
+  margin-top: 10px;
+  margin-left: auto;
+`;
+export const RejectButtonModal = styled.TouchableOpacity`
+  padding: 5px;
+  background-color: ${red};
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  margin-vertical: 5px;
+  height: 40px;
+  width: 35%;
+  margin-top: 10px;
+  margin-left: 20px;
+`;
+export const ChallangeButton = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 50px;
+`;

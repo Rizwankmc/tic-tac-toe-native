@@ -1,9 +1,11 @@
+import { useContext, useEffect, useState } from "react";
 import { Button, Modal, Text, View } from "react-native";
 import close from "../assets/close.png";
 import user1 from "../assets/profile/1.jpg";
 import user2 from "../assets/profile/2.jpg";
 import waitingImg from "../assets/questionMark.png";
 import vs from "../assets/vs.png";
+import { CredentailsContext } from "../utils/context";
 import {
   StyledModalWrapper,
   StyledModal,
@@ -19,53 +21,139 @@ import {
   StyledButtonModal,
   MsgBox,
   Line,
+  StyledButton,
+  NewChallangeBox,
+  NewChallanagePlayer,
+  RejectButton,
+  AcceptButtonModal,
+  RejectButtonModal,
+  ChallangeButton,
+  AcceptButton,
 } from "./styles";
 
-const ModalWrapper = ({ show, setShow, screen, user, modalData }) => {
+const ModalWrapper = ({
+  show,
+  setShow,
+  screen,
+  user,
+  modalData,
+  navigation,
+}) => {
+  const { socket, user: userData } = useContext(CredentailsContext);
+  const [msg, setMsg] = useState("waiting for Opponent...");
+  const [playerTwo, setPlayerTwo] = useState();
+  const [leftTime, setLeftTime] = useState(null);
+  const handleAccept = () => {
+    socket.emit("challengeAccept", {
+      ...modalData,
+    });
+    setShow(false);
+  };
+
+  const handleReject = () => {
+    socket.emit("challengeReject", {
+      ...modalData,
+    });
+    setShow(false);
+  };
+
+  const handleClose = () => {
+    setShow(false);
+  };
+
+  useEffect(() => {
+    socket.on("challengeAccepted", (data) => {
+      setMsg("Challenge Accepted");
+      setPlayerTwo(data.challengeTo);
+    });
+
+    socket.on("challengeRejected", () => {
+      setMsg("Opponent Rejected your challenge");
+    });
+
+    socket.on("gameTimer", (data) => {
+      setLeftTime(data.leftTime);
+    });
+    socket.on("gameStart", () => {
+      navigation.navigate("Game");
+    });
+  }, []);
+
+  useEffect(() => {
+    if (leftTime === 0) {
+      setShow(false);
+    }
+  }, [leftTime]);
+
   const getChild = () => {
     switch (screen) {
       case "search": {
         return (
           <>
-            <PlayerBox>
-              <Player>
-                <PlayerImage source={{ uri: user.profilePicUrl }} />
-                <PlayerText>{user.username}</PlayerText>
-              </Player>
-              <StyledButtonModal>
-                <ButtonText>Challenge</ButtonText>
-              </StyledButtonModal>
-              <StyledButtonModal>
-                <ButtonText>Chat</ButtonText>
-              </StyledButtonModal>
-            </PlayerBox>
-            <Line />
-            <StyledButtonModal>
-              <ButtonText>Cancel</ButtonText>
-            </StyledButtonModal>
+            <>
+              <NewChallangeBox>
+                <NewChallanagePlayer>
+                  <PlayerImage source={{ uri: user?.profilePicUrl }} />
+                  <PlayerText>{user?.username}</PlayerText>
+                </NewChallanagePlayer>
+              </NewChallangeBox>
+              <MsgBox>Want to challenge or chat</MsgBox>
+              <ChallangeButton>
+                <AcceptButtonModal onPress={handleAccept}>
+                  <AcceptButton>Chat</AcceptButton>
+                </AcceptButtonModal>
+                <RejectButtonModal onPress={handleReject}>
+                  <RejectButton>Chat</RejectButton>
+                </RejectButtonModal>
+              </ChallangeButton>
+            </>
           </>
         );
       }
       case "newChallenge": {
-        return <Line />;
+        return (
+          <>
+            <NewChallangeBox>
+              <NewChallanagePlayer>
+                <PlayerImage source={{ uri: user?.profilePicUrl }} />
+              </NewChallanagePlayer>
+            </NewChallangeBox>
+            <MsgBox>{user?.username} has challenged you !!</MsgBox>
+            <ChallangeButton>
+              <AcceptButtonModal onPress={handleAccept}>
+                <AcceptButton>Accept</AcceptButton>
+              </AcceptButtonModal>
+              <RejectButtonModal onPress={handleReject}>
+                <RejectButton>Reject</RejectButton>
+              </RejectButtonModal>
+            </ChallangeButton>
+          </>
+        );
       }
       case "challenge": {
         return (
           <>
             <PlayerBox>
               <Player>
-                <PlayerImage source={user1} />
-                <PlayerText>Rizwan</PlayerText>
+                <PlayerImage source={{ uri: userData.profilePicUrl }} />
+                <PlayerText>{userData?.username}</PlayerText>
               </Player>
               <PlayerVs>
                 <PlayerVSImage source={vs} />
               </PlayerVs>
               <Player>
-                <PlayerImage source={waitingImg} />
-                <PlayerText>....</PlayerText>
+                <PlayerImage
+                  source={
+                    playerTwo ? { uri: playerTwo.profilePicUrl } : waitingImg
+                  }
+                />
+                <PlayerText>
+                  {playerTwo ? playerTwo.username : "...."}
+                </PlayerText>
               </Player>
             </PlayerBox>
-            <MsgBox type="waiting">Waiting for Opponent...</MsgBox>
+            <MsgBox>{leftTime ? leftTime : ""}</MsgBox>
+            <MsgBox type="waiting">{msg}</MsgBox>
             <StyledButtonModal>
               <ButtonText>Cancel</ButtonText>
             </StyledButtonModal>
@@ -73,14 +161,32 @@ const ModalWrapper = ({ show, setShow, screen, user, modalData }) => {
         );
       }
       case "challengeAccepted": {
-        return <Line />;
+        return (
+          <View>
+            <Text>{modalData.playerName} accepted your challenge !!!</Text>
+            <View>
+              <StyledButton onPress={handleClose}>
+                <ButtonText>Cancel</ButtonText>
+              </StyledButton>
+            </View>
+          </View>
+        );
       }
 
       case "challengeRejected": {
-        return <Line />;
+        return (
+          <View>
+            <Text>{modalData.playerName} rejected your challenge !!!</Text>
+            <View>
+              <StyledButton onPress={handleClose}>
+                <ButtonText>Cancel</ButtonText>
+              </StyledButton>
+            </View>
+          </View>
+        );
       }
       default:
-        return "";
+        return;
     }
   };
   return (
