@@ -24,14 +24,48 @@ const GameLobby = ({ navigation }) => {
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
   const [show, setShow] = useState(false);
+  const [modelType, setModelType] = useState("");
+  const [modalData, setModalData] = useState({});
   const context = useContext(CredentailsContext);
 
   const onlineUsers = async () => {
     await onlineUser(setUsers, setMsg, setMsgType, context.storedToken);
   };
 
+  const handleChallengeUser = async (user) => {
+    context.socket.emit("challenge", {
+      challengeTo: user._id,
+      challengeBy: context.user._id,
+      playerName: context.user.username,
+    });
+    setModelType("challenge");
+    setShow(true);
+    console.log("challenge emit");
+  };
+
   useEffect(() => {
     onlineUsers();
+  }, [navigation]);
+
+  useEffect(() => {
+    context.socket.on("newUser", () => {
+      console.log("new User");
+      onlineUsers();
+    });
+
+    context.socket.on("newChallenge", (data) => {
+      setModelType("newChallenge");
+      setModalData(data);
+      setShow(true);
+    });
+
+    context.socket.on("challengeRejected", (data) => {
+      console.log("Challenge Rejected", data);
+    });
+
+    context.socket.on("challengeAccepted", (data) => {
+      console.log("Challenge Accepted", data);
+    });
   }, []);
   return (
     <KeyboardAvoidingWrapper>
@@ -43,7 +77,10 @@ const GameLobby = ({ navigation }) => {
           <Line />
           <GridContainer>
             {users.map((user) => (
-              <GridItem key={user._id}>
+              <GridItem
+                key={user._id}
+                onPress={() => handleChallengeUser(user)}
+              >
                 <GridItemImage
                   source={{ uri: user.profilePicUrl }}
                   resize="cover"
@@ -57,7 +94,13 @@ const GameLobby = ({ navigation }) => {
           <StyledButton>
             <ButtonText onPress={() => setShow(true)}>Click here</ButtonText>
           </StyledButton>
-          <ModalWrapper show={show} setShow={setShow} />
+          <ModalWrapper
+            show={show}
+            setShow={setShow}
+            screen={modelType}
+            modalData={modalData}
+            user={context.user}
+          />
         </InnerContainer>
       </StyledContainer>
     </KeyboardAvoidingWrapper>

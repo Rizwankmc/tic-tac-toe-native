@@ -87,7 +87,7 @@ const RootStack = () => {
               },
             }}
           >
-            <Stack.Screen name="game" component={Game} />
+            {/*<Stack.Screen name="game" component={Game} />*/}
             {storedToken ? (
               <Stack.Screen name="lobby" component={TabNavigator} />
             ) : (

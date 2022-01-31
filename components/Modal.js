@@ -21,25 +21,11 @@ import {
   Line,
 } from "./styles";
 
-const ModalWrapper = ({ show, setShow, screen, user }) => {
-  return (
-    <Modal
-      animationType="slide"
-      transparent={false}
-      visible={show}
-      hasBackdrop={true}
-      backdropOpacity={0.8}
-      backdropColor={"rgba(255, 0, 0, 0.8)"}
-      onRequestClose={() => {
-        Alert.alert("Modal has been closed.");
-        setShow(false);
-      }}
-    >
-      <StyledModalWrapper>
-        <StyledCloseComponent onPress={() => setShow(false)}>
-          <ModalClose source={close} />
-        </StyledCloseComponent>
-        {screen === "search" ? (
+const ModalWrapper = ({ show, setShow, screen, user, modalData }) => {
+  const getChild = () => {
+    switch (screen) {
+      case "search": {
+        return (
           <>
             <PlayerBox>
               <Player>
@@ -58,7 +44,13 @@ const ModalWrapper = ({ show, setShow, screen, user }) => {
               <ButtonText>Cancel</ButtonText>
             </StyledButtonModal>
           </>
-        ) : (
+        );
+      }
+      case "newChallenge": {
+        return <Line />;
+      }
+      case "challenge": {
+        return (
           <>
             <PlayerBox>
               <Player>
@@ -78,7 +70,38 @@ const ModalWrapper = ({ show, setShow, screen, user }) => {
               <ButtonText>Cancel</ButtonText>
             </StyledButtonModal>
           </>
-        )}
+        );
+      }
+      case "challengeAccepted": {
+        return <Line />;
+      }
+
+      case "challengeRejected": {
+        return <Line />;
+      }
+      default:
+        return "";
+    }
+  };
+  return (
+    <Modal
+      animationType="slide"
+      transparent={false}
+      visible={show}
+      hasBackdrop={true}
+      backdropOpacity={0.8}
+      backdropColor={"rgba(255, 0, 0, 0.8)"}
+      onRequestClose={() => {
+        Alert.alert("Modal has been closed.");
+        setShow(false);
+      }}
+    >
+      <StyledModalWrapper>
+        <StyledCloseComponent onPress={() => setShow(false)}>
+          <ModalClose source={close} />
+        </StyledCloseComponent>
+
+        {getChild()}
       </StyledModalWrapper>
     </Modal>
   );
