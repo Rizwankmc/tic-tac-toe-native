@@ -348,7 +348,7 @@ export const Gamebg = styled.View`
   max-width: 400px;
   color: white;
 `;
-export const Gamerow1 = styled.Text`
+export const Gamerow1 = styled.TouchableOpacity`
   color: white;
 `;
 export const GameBorder = styled.View`
@@ -486,3 +486,7 @@ export const ChallangeButton = styled.View`
   justify-content: space-between;
   margin-top: 50px;
 `;
+
+export const BallImage = styled.Image``;
+
+export const CylinderImage = styled.Image``;
