@@ -76,7 +76,7 @@ const RootStack = () => {
       {({ storedToken }) => (
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="Game"
+            initialRouteName="Login"
             screenOptions={{
               headerTintColor: Colors.tertiary,
               headerShadowVisible: false,
