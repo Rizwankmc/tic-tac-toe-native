@@ -227,6 +227,14 @@ export const Player = styled.View`
   text-align: center;
   border-radius: 5px;
 `;
+export const PlayerGameSection = styled.View`
+  margin: 20px 5px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  margin:0px auto;
+  display:flex;
+`;
 export const PlayerText = styled.Text`
   font-size: 18px;
   color: black;
@@ -292,7 +300,7 @@ export const PlayerVSImage = styled.Image`
 `;
 
 export const Gamecontainer = styled.View`
-  background-color: #158b7f;
+  background-color: ${darkLight};
   text-align: center;
   height: 100%;
   padding: 20px;
@@ -316,11 +324,18 @@ export const GamePlayer = styled.View`
   color: red;
   width: 50%;
   flex-direction: column;
+  text-align:center;
+  justify-content:center;
+`;
+export const GamePlayerText = styled.Text`
+text-align:center;
+font-size:18px;
+font-weight: bold;
 `;
 export const Playericon = styled.View`
-  background-color: #e0a56b;
-  width: 100%;
-  padding: 5px;
+  background-color: black;
+  width: auto;
+  padding: 6px;
   margin: 10px auto;
   margin-left: auto;
   margin-right: auto;
@@ -332,12 +347,18 @@ export const Playericon = styled.View`
   font-weight: 700;
   margin-top: 10px;
   border-radius: 5px;
-`;
+  height:40px;
+  width:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:row;
+  `;
 
 export const Gamebg = styled.View`
   background-color: #000;
   padding: 30px;
-  margin-top: 40px;
+  margin-top: 30px;
   border-radius: 8px;
   width: 80%;
   margin: 80px auto;
@@ -350,6 +371,8 @@ export const Gamebg = styled.View`
 `;
 export const Gamerow1 = styled.TouchableOpacity`
   color: white;
+  width:100%;
+  height:100%;
 `;
 export const GameBorder = styled.View`
   display: flex;
@@ -442,51 +465,88 @@ export const Box9 = styled.View`
 `;
 
 export const NewChallangeBox = styled.View`
-  width: 100%;
-  margin: 20px auto;
+width:100%;
+margin:20px auto;
 `;
 export const NewChallanagePlayer = styled.View`
-  margin: 0px auto;
+margin:0px auto;
 `;
 export const AcceptButton = styled.Text`
-  color: ${primary};
+color: ${primary};
   font-size: 16px;
 `;
 export const RejectButton = styled.Text`
-  color: ${primary};
+color: ${primary};
   font-size: 16px;
 `;
 export const AcceptButtonModal = styled.TouchableOpacity`
-  padding: 5px;
-  background-color: ${brand};
-  justify-content: center;
-  align-items: center;
-  border-radius: 5px;
-  margin-vertical: 5px;
-  height: 40px;
-  width: 35%;
-  margin-top: 10px;
-  margin-left: auto;
+padding: 5px;
+background-color: ${brand};
+justify-content: center;
+align-items: center;
+border-radius: 5px;
+margin-vertical: 5px;
+height: 40px;
+width: 35%;
+margin-top: 10px;
+margin-left:auto;
 `;
 export const RejectButtonModal = styled.TouchableOpacity`
-  padding: 5px;
-  background-color: ${red};
-  justify-content: center;
-  align-items: center;
-  border-radius: 5px;
-  margin-vertical: 5px;
-  height: 40px;
-  width: 35%;
-  margin-top: 10px;
-  margin-left: 20px;
+padding: 5px;
+background-color: ${red};
+justify-content: center;
+align-items: center;
+border-radius: 5px;
+margin-vertical: 5px;
+height: 40px;
+width: 35%;
+margin-top: 10px;
+margin-left:20px;
 `;
 export const ChallangeButton = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 50px;
+display:flex;
+flex-direction: row;
+justify-content:space-between;
+margin-top:50px;
 `;
 
-export const BallImage = styled.Image``;
+export const UserOneStyle = styled.View`
+display:flex;
+justify-content:center;
+flex-direction:row;
+`;
+export const UserOneText = styled.Text`
+color:white;
+`;
 
-export const CylinderImage = styled.Image``;
+export const GameExitButton = styled.TouchableOpacity`
+padding: 5px;
+background-color: ${red};
+justify-content: center;
+align-items: center;
+border-radius: 5px;
+height: 40px;
+width: 20%;
+margin-top: 10px;
+`;
+export const GameExitSection = styled.View`
+display:flex;
+justify-content:flex-end;
+flex-direction:row;
+margin-top:20px;
+`;
+export const GameExitText = styled.Text`
+color:white;
+font-size:16px;
+`;
+export const PlayerTextGame = styled.Text`
+  font-size: 18px;
+  color: black;
+  text-align: center;
+  margin-top: 15px;
+  background-color: ${brand};
+  color: white;
+  padding: 8px 30px;
+  font-size: 15px;
+  border-radius: 20px;
+`;
