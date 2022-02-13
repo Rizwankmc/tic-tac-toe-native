@@ -35,7 +35,19 @@ export const InnerContainer = styled.View`
   width: 100%;
   align-items: center;
 `;
-
+export const ChatInnerContainer = styled.View`
+flex: 1;
+width: 100%;
+align-items: center;
+background-color:white;
+`;
+export const ChatPageContainer =styled.View`
+width:100%;
+flex:1;
+padding: 20px;
+overflow:hidden;
+background-color:white;
+`;
 export const PageLogo = styled.Image`
   width: 250px;
   height: 250px;
@@ -47,8 +59,19 @@ export const PageTitle = styled.Text`
   font-weight: bold;
   color: ${brand};
   padding: 10px;
-`;
 
+`;
+export const ChatPageTitle = styled.Text`
+font-size: 30px;
+text-align: left;
+font-weight: bold;
+color: ${brand};
+padding-left: 10px;
+width:100%
+background-color:white;
+margin-top:50px;
+margin-bottom:30px;
+`;
 export const SubTitle = styled.Text`
   font-size: 18px;
   margin-bottom: 20px;
@@ -251,13 +274,27 @@ export const ChatUser = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
   width: 100%;
-  margin: 5px;
+  padding-bottom:30px;
+`;
+export const ChatUserProfileArea = styled.TouchableOpacity`
+display: flex;
+flex-direction: row;
+width: 100%;
+align-items:center;
+margin-top:20px;
 `;
 
 export const ChatUserImage = styled.Image`
-  width: 40px;
-  height: 40px;
-  border-radius: 50;
+  width: 45px;
+  height: 45px;
+  border-radius: 50px;
+  margin: 5px;
+`;
+
+export const ChatUserDetailImage = styled.Image`
+  width: 35px;
+  height: 35px;
+  border-radius: 50px;
   margin: 5px;
 `;
 
@@ -265,16 +302,16 @@ export const ChatUserTextContianer = styled.View`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-left: 15px;
+  margin-left: 10px;
 `;
 
 export const ChatUserName = styled.Text`
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 18px;
+  font-weight: 700;
 `;
 
 export const ChatUserLastMessage = styled.Text`
-  font-size: 15px;
+  font-size: 14px;
 `;
 
 export const StyledButtonModal = styled.TouchableOpacity`
@@ -549,4 +586,46 @@ export const PlayerTextGame = styled.Text`
   padding: 8px 30px;
   font-size: 15px;
   border-radius: 20px;
+`;
+export const currentPlayer = styled.View`
+background-color:red;
+padding:20px;
+`;
+export const ChatList = styled.View`
+width:100%;
+`;
+export const MyChat = styled.TouchableOpacity`
+width:80%;
+margin-left:auto;
+background-color:${brand};
+padding:8px 20px;
+border-radius:50px;
+margin-bottom:10px;
+margin-top:10px;
+`;
+export const MyChatText = styled.Text`
+color:white;
+text-align:right;
+margin-right:10px
+`;
+export const OtherChat = styled.TouchableOpacity`
+width:80%;
+margin-right:auto;
+background-color:${darkLight};
+padding:8px 20px;
+border-radius:50px;
+margin-bottom:10px;
+margin-top:10px;
+`;
+export const OtherChatText = styled.Text`
+color:white;
+margin-left:10px;
+`;
+
+export const ChatDetailsArea = styled.View`
+width:100%;
+heightL100%;
+`;
+export const ChatDetailsPage = styled.View`
+height:100%;
 `;
