@@ -38,10 +38,11 @@ const ModalWrapper = ({
   user,
   modalData,
   navigation,
+  setModalData,
+  setModelType,
 }) => {
   const { socket, user: userData } = useContext(CredentailsContext);
   const [msg, setMsg] = useState("waiting for Opponent...");
-  const [playerTwo, setPlayerTwo] = useState();
   const [leftTime, setLeftTime] = useState(null);
   const handleAccept = () => {
     socket.emit("challengeAccept", {
@@ -55,35 +56,43 @@ const ModalWrapper = ({
       ...modalData,
     });
     setShow(false);
+    setModalData({});
+    setModelType("");
   };
 
   const handleClose = () => {
     setShow(false);
+    setMsg("waiting for Opponent ...");
+    setPlayerTwo();
+    setLeftTime(null);
+    setModalData({});
+    setModelType("");
   };
 
   useEffect(() => {
-    socket.on("challengeAccepted", (data) => {
-      setMsg("Challenge Accepted");
-      setPlayerTwo(data.challengeTo);
-    });
-
     socket.on("challengeRejected", () => {
       setMsg("Opponent Rejected your challenge");
+    });
+    socket.on("challengeAccepted", () => {
+      setMsg("Challenge Accepted");
     });
 
     socket.on("gameTimer", (data) => {
       setLeftTime(data.leftTime);
       if (data.leftTime === 0) {
+        setModalData({});
+        setModelType("");
+        setShow(false);
         navigation.navigate("Game");
       }
     });
-  }, []);
 
-  useEffect(() => {
-    if (leftTime === 0) {
-      setShow(false);
-    }
-  }, [leftTime]);
+    return () => {
+      socket.off("challengeRejected");
+      socket.off("gameTimer");
+      socket.off("challengeAccepted");
+    };
+  }, []);
 
   const getChild = () => {
     switch (screen) {
@@ -115,10 +124,14 @@ const ModalWrapper = ({
           <>
             <NewChallangeBox>
               <NewChallanagePlayer>
-                <PlayerImage source={{ uri: user?.profilePicUrl }} />
+                <PlayerImage
+                  source={{ uri: modalData?.challengeBy?.profilePicUrl }}
+                />
               </NewChallanagePlayer>
             </NewChallangeBox>
-            <MsgBox>{user?.username} has challenged you !!</MsgBox>
+            <MsgBox>
+              {modalData?.challengeBy?.username} has challenged you !!
+            </MsgBox>
             <ChallangeButton>
               <AcceptButtonModal onPress={handleAccept}>
                 <AcceptButton>Accept</AcceptButton>
@@ -135,8 +148,18 @@ const ModalWrapper = ({
           <>
             <PlayerBox>
               <Player>
-                <PlayerImage source={{ uri: userData.profilePicUrl }} />
-                <PlayerText>{userData?.username}</PlayerText>
+                <PlayerImage
+                  source={{
+                    uri: modalData.challengeBy
+                      ? modalData.challengeBy.profilePicUrl
+                      : userData.profilePicUrl,
+                  }}
+                />
+                <PlayerText>
+                  {modalData.challengeBy
+                    ? modalData.challengeBy.username
+                    : userData?.username}
+                </PlayerText>
               </Player>
               <PlayerVs>
                 <PlayerVSImage source={vs} />
@@ -144,11 +167,17 @@ const ModalWrapper = ({
               <Player>
                 <PlayerImage
                   source={
-                    playerTwo ? { uri: playerTwo.profilePicUrl } : waitingImg
+                    modalData.challengeTo
+                      ? {
+                          uri: modalData.challengeTo.profilePicUrl,
+                        }
+                      : waitingImg
                   }
                 />
                 <PlayerText>
-                  {playerTwo ? playerTwo.username : "...."}
+                  {modalData.challengeTo
+                    ? modalData.challengeTo.username
+                    : "...."}
                 </PlayerText>
               </Player>
             </PlayerBox>

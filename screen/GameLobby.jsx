@@ -33,9 +33,9 @@ const GameLobby = ({ navigation }) => {
     await onlineUser(setUsers, setMsg, setMsgType, storedToken);
   };
 
-  const handleChallengeUser = async (user) => {
+  const handleChallengeUser = async (value) => {
     socket.emit("challenge", {
-      challengeTo: user,
+      challengeTo: value,
       challengeBy: user,
     });
     setModelType("challenge");
@@ -61,10 +61,16 @@ const GameLobby = ({ navigation }) => {
     });
 
     socket.on("challengeAccepted", (data) => {
+      console.log("accepred");
       setModelType("challenge");
       setModalData(data);
       setShow(true);
     });
+    return () => {
+      socket.off("challengeAccepted");
+      socket.off("newChallenge");
+      socket.off("newUser");
+    };
   }, []);
   return (
     <KeyboardAvoidingWrapper>
@@ -100,6 +106,8 @@ const GameLobby = ({ navigation }) => {
             modalData={modalData}
             user={user}
             navigation={navigation}
+            setModalData={setModalData}
+            setModelType={setModelType}
           />
         </InnerContainer>
       </StyledContainer>

@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -54,7 +55,7 @@ const UserProfile = () => {
         <StatusBar style="dark" />
         <InnerContainer>
           <PageTitle>UserProfile</PageTitle>
-
+          <Text>{user?.username}</Text>
           <ProfileImage source={{ uri: user.profilePicUrl }}></ProfileImage>
           <StyledButton onPress={pickImage}>
             <ButtonText>Change Profile</ButtonText>

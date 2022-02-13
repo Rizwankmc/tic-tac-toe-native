@@ -38,7 +38,7 @@ import {
 import Box from "../components/Ball/Box";
 import { CredentailsContext } from "../utils/context";
 
-const Game = () => {
+const Game = ({ navigation }) => {
   const { socket, user } = useContext(CredentailsContext);
   const [roomData, setRoomData] = useState({});
   const [showWelcome, setShowWelcome] = useState(true);
@@ -54,9 +54,6 @@ const Game = () => {
   useEffect(() => {
     // socket to listen for game start
     socket.on("gameStart", (data) => {
-      console.log(
-        `....Game Started....\n\n \tYour are player ${data.playerPosition}\n`
-      );
       setRoomData(data);
       setMatrix(data.matrix);
     });
@@ -112,14 +109,27 @@ const Game = () => {
 
     socket.on("welcome", (data) => {
       setRoomData(data);
-      setShowWelcome(true);
+      console.log("welcome");
     });
 
     socket.on("preTimer", (data) => {
       setLeftTime(data.leftTime);
+      console.log("data left time =>", data.leftTime);
       if (data.leftTime === 0);
       setShowWelcome(false);
     });
+
+    return () => {
+      socket.off("welcome");
+      socket.off("challengeRejected");
+      socket.off("preTimer");
+      socket.off("challengeAccepted");
+      socket.off("disconnect");
+      socket.off("gametie");
+      socket.off("finish");
+      socket.off("updateMatrix");
+      socket.off("gameStart");
+    };
   }, []);
 
   const handlePlayerAction = (choice) => {
@@ -134,7 +144,7 @@ const Game = () => {
       <StatusBar style="auto" />
       {/* <WelcomeText> Tic Tac Toe</WelcomeText> */}
       <GameExitSection>
-        <GameExitButton>
+        <GameExitButton onPress={() => navigation.navigate("GameLobby")}>
           {/* <GameExitText>Exit</GameExitText> */}
           <Text>
             <FontAwesomeIcon icon={faSignOutAlt} color="white" />
