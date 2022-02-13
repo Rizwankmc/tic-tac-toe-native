@@ -73,9 +73,9 @@ const ModalWrapper = ({
 
     socket.on("gameTimer", (data) => {
       setLeftTime(data.leftTime);
-    });
-    socket.on("gameStart", () => {
-      navigation.navigate("Game");
+      if (data.leftTime === 0) {
+        navigation.navigate("Game");
+      }
     });
   }, []);
 

@@ -27,16 +27,16 @@ const GameLobby = ({ navigation }) => {
   const [modelType, setModelType] = useState("");
   const [modalData, setModalData] = useState({});
   const [selectedUser, setSelectedUser] = useState({});
-  const context = useContext(CredentailsContext);
+  const { user, storedToken, socket } = useContext(CredentailsContext);
 
   const onlineUsers = async () => {
-    await onlineUser(setUsers, setMsg, setMsgType, context.storedToken);
+    await onlineUser(setUsers, setMsg, setMsgType, storedToken);
   };
 
   const handleChallengeUser = async (user) => {
-    context.socket.emit("challenge", {
+    socket.emit("challenge", {
       challengeTo: user,
-      challengeBy: context.user,
+      challengeBy: user,
     });
     setModelType("challenge");
     setShow(true);
@@ -48,19 +48,19 @@ const GameLobby = ({ navigation }) => {
   }, [navigation]);
 
   useEffect(() => {
-    context.socket.on("newUser", () => {
+    socket.on("newUser", () => {
       console.log("new User");
       onlineUsers();
     });
 
-    context.socket.on("newChallenge", (data) => {
+    socket.on("newChallenge", (data) => {
       setModelType("newChallenge");
       setModalData(data);
       setShow(true);
       console.log("new cha");
     });
 
-    context.socket.on("challengeAccepted", (data) => {
+    socket.on("challengeAccepted", (data) => {
       setModelType("challenge");
       setModalData(data);
       setShow(true);
@@ -98,7 +98,7 @@ const GameLobby = ({ navigation }) => {
             setShow={setShow}
             screen={modelType}
             modalData={modalData}
-            user={context.user}
+            user={user}
             navigation={navigation}
           />
         </InnerContainer>
